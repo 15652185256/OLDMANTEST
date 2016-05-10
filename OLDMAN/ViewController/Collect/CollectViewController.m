@@ -490,13 +490,11 @@
     
     [KVNProgress show];
     
-    AFHTTPRequestOperationManager * manager=[AFHTTPRequestOperationManager manager];
-    manager.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"application/json",@"text/html",nil];
-    
-    //发送请求
     [NetRequestClass NetRequestLoginRegWithRequestURL:updateProcessStateHttp WithParameter:parameter WithReturnValeuBlock:^(id returnValue) {
+        
         [KVNProgress dismiss];
-        //NSLog(@"%@",returnValue);
+        
+        NSLog(@"%@",returnValue);
         
         if ([returnValue[@"success"] intValue]==1) {
             
@@ -547,7 +545,9 @@
     
     //发送请求
     [NetRequestClass NetRequestLoginRegWithRequestURL:updateProcessStateHttp WithParameter:parameter WithReturnValeuBlock:^(id returnValue) {
+        
         [KVNProgress dismiss];
+        
         //NSLog(@"%@",returnValue);
         
         if ([returnValue[@"success"] intValue]==1) {
