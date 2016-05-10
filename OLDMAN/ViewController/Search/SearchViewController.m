@@ -8,8 +8,17 @@
 
 #import "SearchViewController.h"
 
-@interface SearchViewController ()
+#import "MJRefresh.h"//上下拉刷新
 
+@interface SearchViewController ()<UISearchBarDelegate>
+{
+    UITableView * _tableView;//主视图
+    
+    UISearchBar * _mySearchBar;//搜索框
+}
+@property(nonatomic,assign)int NewsListPage;
+//数据
+@property(nonatomic,retain)NSMutableArray * dataSourse;
 @end
 
 @implementation SearchViewController
@@ -21,6 +30,11 @@
     
     //设置导航
     [self createNav];
+    
+    _dataSourse=[[NSMutableArray alloc]init];
+    
+    //设置页面
+    [self createView];
 }
 
 #pragma mark 设置导航
@@ -47,6 +61,47 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+
+#pragma mark 设置页面
+-(void)createView
+{
+    //主视图
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(WIDTH*0, 0, WIDTH, HEIGHT-64-PAGESIZE(46)-65) style:UITableViewStylePlain];
+    _tableView.backgroundColor=View_Background_Color;
+    _tableView.separatorStyle = UITableViewCellSelectionStyleNone;//去掉分割线
+    [_tableView setSeparatorColor:CREATECOLOR(227, 227, 227, 1)];
+    [self.view addSubview:_tableView];
+//    _tableView.delegate=self;
+//    _tableView.dataSource=self;
+//    [_tableView registerClass:[RootTableViewCell class] forCellReuseIdentifier:@"ID"];
+    
+    
+    _mySearchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, WIDTH, 40)];
+    _tableView.tableHeaderView = _mySearchBar;
+    _mySearchBar.delegate = self;
+    
+    
+//    //添加上下拉刷新
+//    __weak typeof(self) weakSelf = self;
+//    [_tableView addLegendHeaderWithRefreshingBlock:^{
+//        //当出发下拉刷新的时候
+//        _NewsListPage=1;
+//        [weakSelf loadData:_NewsListPage];
+//    }];
+//    
+//    //添加上拉刷新
+//    [_tableView addLegendFooterWithRefreshingBlock:^{
+//        [weakSelf loadData:_NewsListPage];
+//    }];
+}
+
+
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    NSLog(@"%@",searchBar.text);
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
