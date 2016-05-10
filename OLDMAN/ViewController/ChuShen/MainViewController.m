@@ -195,6 +195,16 @@
     
 }
 
+//信息按钮跳转
+-(void)newsButtonClick
+{
+    //系统消息
+    [self.navigationController pushViewController:_JpushNewsVC animated:YES];
+}
+
+
+
+
 #pragma mark 设置头部
 -(void)createTopView
 {
@@ -261,12 +271,7 @@
 
 
 
-//信息按钮跳转
--(void)newsButtonClick
-{
-    //系统消息
-    [self.navigationController pushViewController:_JpushNewsVC animated:YES];
-}
+
 
 
 
